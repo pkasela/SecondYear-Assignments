@@ -51,18 +51,18 @@ The autoencoder developed has the objective to reduce the dimension of the data 
 After the development of the autoencoders the idea was to use the encoded images for the classification task, one could expect the performance to get worse, since some of the information was lost during the encoding. The model was developed taking the encoder part of the autoencoder model and adding 2 Dense Layer of 256 neurons activated with `relu' each. Both layer had a dropout rate of 0.2 to help generalize well. During the training the first two layer (encoder ones) are frozen in order to not influence the encoder's weight. The F$_1$-measure in this case was 0.93, practically we had no loss in performance despite losing information from the encoding. The confusion matrix of the model is in Figure \ref{fig:model2}.
 \begin{figure}
 	\centering
-	\includegraphics[width=\linewidth,height=4cm]{imgs/model_2.png}
+	\includegraphics[width=\linewidth,height=4.2cm]{imgs/model_2.png}
 	\caption{Confusion Matrix For the Second Model}
 	\label{fig:model2}
 \end{figure}
 
 \section*{Conclusion}
 The model can be improved by using data augmentation by randomly zooming and tilting the images (a little otherwise a `p' would become a `d'). The encoder worked really well, but the data quantity was really low to improve the model without data augmentation/feature engineering or without using advanced models such as CNNs.\\
-There are also some data difficulties such as the third encoded image in the Figure \ref{fig:autoencoder}, it should represent the letter `p', but it is really difficult to tell which letter it actually is. Even a human would have hard time deciding which letter they are (Figure \ref{fig:strange}).
+There are also some data difficulties such as the third encoded image in the Figure \ref{fig:autoencoder}, it should represent the letter `p', but it is really difficult to tell which letter it actually is. Even a human would have hard time deciding which letter they are, see Figure \ref{fig:strange}.
 
-\begin{figure}[!b]
+\begin{figure}[!h]
 	\centering
-	\includegraphics[width=\linewidth, height=1.5cm]{imgs/strange_letters.png}
+	\includegraphics[width=\linewidth]{imgs/strange_letters.png}
 	\caption{Examples of Confusing Alphabets.}
 	\label{fig:strange}
 \end{figure}
