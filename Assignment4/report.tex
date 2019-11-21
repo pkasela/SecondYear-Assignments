@@ -21,8 +21,8 @@ The dataset consists of images ($150\times150$) with 6 classes: Forest, Mountain
   \label{fig:example}
 \end{figure}
 
-For the assignment the transfer model used is VGG16, the head of the architecture (without the final FC layers) is represented in Figure \ref{fig:VGG16} along with the points where the three cuts are done the features are extracted with a GlobalMaxPooling in all three cuts.
-After the feature extraction the best model found is SVM with linear kernel in all three cases.
+For the assignment the transfer model used is VGG16, the back of the architecture (without the final FC layers) is represented in Figure \ref{fig:VGG16} along with the points where the four cuts are done the features are extracted with a GlobalMaxPooling in all four cuts in order to avoid having a lot of features during the training.
+After the feature extraction the machine learning model used is the SVM with linear kernel in all four cases.
 \begin{figure}[!h]
   \centering
   \includegraphics[width=\linewidth, height=5cm]{imgs/VGG16.png}
@@ -31,21 +31,25 @@ After the feature extraction the best model found is SVM with linear kernel in a
 \end{figure}
 
 \section*{Results}
-Both in the First and Second cut the feature extracted are 512, while in the Third cut there are 128 features, these cut are done to see how much the classic machine learning classification models are able to distinguish the images based on the the results obtained by VGG16 pretrained on imagenet.\\
+Both in the First and Second cut the feature extracted are 512, while in the Third and Fourth cut there are 256 and 128 features respectively, these cut are done at each block of the VGG16 (except for  to see how much the classic machine learning classification models are able to distinguish the images based on the the results obtained by VGG16 pretrained on imagenet.\\
 Here are the accuracy results using the Support Vector Classifier with linear kernel, the C coefficient is different in all three cases, only the C with the best performance on validation was chosen:
 \begin{center}
   \begin{tabular}{|l|c|c|c|}
     \hline
     & Train & Validation & Test\\
     \hline
-    First Cut $(C=0.5)$ & 0.95 & 0.89 & 0.89\\
+    First Cut $(C=0.5)$ & 0.949 & 0.899 & 0.894\\
     \hline
-    Second Cut $(C=1)$ & 0.96 & 0.91 & 0.90\\
+    Second Cut $(C=1)$ & 0.958 & 0.908 & 0.903\\
     \hline
-    Third Cut $(C=0.1)$ & 0.85 & 0.83 & 0.83\\
+    Third Cut $(C=0.5)$ & 0.919 & 0.895 & 0.897\\
+    \hline
+    Forth Cut $(C=0.1)$ & 0.847 & 0.835 & 0.829\\
     \hline
   \end{tabular}
 \end{center}
-The best cut seems to be the Second one, since it obtains similar (better) performance when compared to the First cut, but has to do less calculation to extract the features. In the Third cut the performance got drastically worse, losing about $10\%-11\%$ of accuracy in training and $6\%-8\%$ in test and validation. 
+The best cut seems to be the Second one, since it obtains similar (better) performance when compared to the other cut. In the Forth cut the performance got drastically worse, losing about $11\%$ of accuracy in training and $7\%$ in test and validation compared to the Second Cut.\\
+The result could have been expected since there are some classes very similar to the imagenet dataset for example sea-(seashore, coast), street-(street sign), so going deeper in the model will create more interesting features for the classification.
+
 
 \end{document}
