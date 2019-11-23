@@ -23,7 +23,8 @@ The dataset consists of images ($150\times150$) with 6 balanced classes: Forest,
 \end{figure}
 
 \section*{Models}
-For the assignment the model used for transfer learning is the VGG16, the part of it's architecture without the final FC layers is represented in Figure \ref{fig:VGG16} along with the points where the four cuts are done. The features are extracted with a GlobalMaxPooling layer in all four cuts, so number of the features are the number of filter in the last layer considered, this was done to avoid having a lot of features during the training another approach could have been using PCA or similar techniques before training the classifier.
+For the assignment the model used for transfer learning is the VGG16, the part of it's architecture without the final FC layers is represented in Figure \ref{fig:VGG16} along with the points where the four cuts are done, from the Figure \ref{fig:VGG16} also the details about the layers can be deduced.
+The features are extracted with a GlobalMaxPooling layer in all four cuts, so number of the features are the number of filter in the last layer considered, this was done to avoid having a lot of features during the training another approach could have been using PCA or similar techniques before training the classifier.
 After the feature extraction the machine learning model used is the SVM with linear kernel in all four cases.
 \begin{figure}[!h]
   \centering
