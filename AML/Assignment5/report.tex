@@ -2,6 +2,7 @@
 % !TeX spellcheck = en_US
 \documentclass[12pt, onecolumn]{article}
 
+\usepackage{subfig}
 \usepackage{graphicx}
 
 %opening
@@ -117,10 +118,18 @@ The Random and Grid Search model given more iteration outperforms the models in 
 
 \section*{Conclusions}
 % time of algorithm (GP is a lot slower than RF 3-4x)
-One of things than can be noticed using GP as a surrogate model on the second exercise is that GP is about $5\times$ slower than the RF in this case taking nearly 1044 seconds while RF took only about $210$ seconds.\\
+One of things than can be noticed using GP as a surrogate model on the second exercise is that GP is about $5\times$ slower than the RF in this case taking nearly 1044 seconds while RF took only about $210$ seconds.
 % why chose the new metric
 % what happens if we use always accuracy <- plot of second_accuracy
-The choice of a different metric than the one asked by the assignment is, as already mentioned, due to the class imbalance problem, but another motive is the fact that minimizing the requested metric `accuracy' with SMBO always made SMBO models to converge to the ZeroRule model, and being to be unable to find a better point of convergence (See Figure \ref{fig:second_acc}), some of the reasons are the lack of sufficient data and such a big number of folds in the cross validation, in fact, in each fold the model has at most 1 or 2 elements of the rare class in the test set, if it makes an error on that one the ML model has no more chance on improving its result, while using the weighted accuracy, more weight is given to the rare element, so the MLP is more attentive to that class, and it has the advantage that it does not neglect the non rare class.    
+\begin{figure}[!h]
+  \centering
+  \subfloat[accuracy measure]{\includegraphics[width=.5\linewidth, height=5cm]{imgs/contour.png}}
+  \subfloat[weighted accuracy]{\includegraphics[width=.5\linewidth, height=5cm]{imgs/contour_weighted.png}}
+  \caption{Contour Plot using accuracy and weighted accuracy in the First Exercise with the LCB acquisition function.}
+  \label{fig:contour}
+\end{figure}\\
+The choice of a different metric than the one asked by the assignment is, as already mentioned, due to the class imbalance problem, but another motive is the fact that minimizing the requested metric `accuracy' with SMBO always made SMBO models to converge to the ZeroRule model, and being to be unable to find a better point of convergence (See Figure \ref{fig:second_acc}), some of the reasons are the lack of sufficient data and such a big number of folds in the cross validation, in fact, in each fold the model has at most 1 or 2 elements of the rare class in the test set, if it makes an error on that one the ML model has no more chance on improving its result, while using the weighted accuracy, more weight is given to the rare element, so the MLP is more attentive to that class, and it has the advantage that it does not neglect the non rare class.\\
+In the Figure \ref{fig:contour} one can also note how in the case of accuracy the linear interpolation of the evaluated points is flat and the points are being selected randomly, while in the case of weighted accuracy the weighted accuracy function (of learning rate and momentum) is not completely a plateau and the points are clustered at a low value of momentum (the learning rate doesn't seem to change the value too much one of the motive might be that taking a low value of learning rate the model only need more iterations to converge but it will eventually converge to the same point (given the same momentum), the best point is indicated with a red color.  
 \begin{figure}[!h]
   \centering
   \includegraphics[width=\linewidth, height=5cm]{imgs/second_comparision_accuracy.png}
